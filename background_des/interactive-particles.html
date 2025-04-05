@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Book Promotion</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            width: 100vw;
+            height: 100vh;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+        }
+
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: black;
+            z-index: 1;
+        }
+
+        .content-wrapper {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2;
+        }
+
+        .content {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 0 30px rgba(255, 87, 0, 0.3);
+            border: 1px solid rgba(255, 87, 0, 0.2);
+            max-width: 600px;
+            margin: 2rem;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .content:hover {
+            transform: translateY(-5px);
+        }
+
+        .book-image {
+            max-width:150px;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 0 25px rgba(255, 87, 0, 0.3);
+            margin-bottom: 0.6rem;
+            transition: transform 0.3s ease;
+        }
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px 20px;
+            border-radius: 30px;
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        .book-image:hover {
+            transform: scale(1.05);
+        }
+
+        h1 {
+            color: #f57900;
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 10px rgba(255, 87, 0, 0.5);
+        }
+
+        p {
+            color: #ffffff;
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: rgba(255, 87, 0, 0.2);
+            color: #f57900;
+            text-decoration: none;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border: 2px solid #f57900;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background: rgba(255, 87, 0, 0.3);
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255, 87, 0, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                margin: 1rem;
+                padding: 2rem;
+            }
+
+            .book-image {
+                max-width: 250px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            p {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="test"></canvas>
+    <div class="content-wrapper">
+        <div class="content">
+            <img src="https://moodswag.com/wp-content/uploads/2021/01/Subhash-Chandra-Bose-1-768x1184.jpg" alt="Book Cover" class="book-image">
+            <h1>Netaji Subhas Bose</h1>
+            <p>
+                Step into the inspiring journey of Netaji Subhas Chandra Bose — a symbol of courage and patriotism.
+A must-read for those who admire fearless leadership and the spirit of freedom.
+            </p>
+            <a href="#" class="cta-button">Get Your Copy Now!</a>
+        </div>
+        <a href="index.html" class="back-button">← Back to Home</a>
+    </div>
+
+    <script>
+        var w = window.innerWidth,
+            h = window.innerHeight,
+            canvas = document.getElementById('test'),
+            ctx = canvas.getContext('2d'),
+            rate = 60,
+            arc = 100,
+            time,
+            count,
+            size = 7,
+            speed = 20,
+            parts = new Array,
+            colors = ['red', '#f57900', 'yellow', '#ce5c00', '#5c3566'];
+
+        var mouse = {
+            x: 0,
+            y: 0
+        };
+
+        canvas.setAttribute('width', w);
+        canvas.setAttribute('height', h);
+
+        function create() {
+            time = 0;
+            count = 0;
+            for (var i = 0; i < arc; i++) {
+                parts[i] = {
+                    x: Math.ceil(Math.random() * w),
+                    y: Math.ceil(Math.random() * h),
+                    toX: Math.random() * 5 - 1,
+                    toY: Math.random() * 2 - 1,
+                    c: colors[Math.floor(Math.random() * colors.length)],
+                    size: Math.random() * size
+                }
+            }
+        }
+
+        function particles() {
+            ctx.clearRect(0, 0, w, h);
+            for (var i = 0; i < arc; i++) {
+                var li = parts[i];
+                var distanceFactor = DistanceBetween(mouse, parts[i]);
+                var distanceFactor = Math.max(Math.min(15 - (distanceFactor / 10), 10), 1);
+                ctx.beginPath();
+                ctx.arc(li.x, li.y, li.size * distanceFactor, 0, Math.PI * 2, false);
+                ctx.fillStyle = li.c;
+                ctx.strokeStyle = li.c;
+                if (i % 2 == 0)
+                    ctx.stroke();
+                else
+                    ctx.fill();
+
+                li.x = li.x + li.toX * (time * 0.05);
+                li.y = li.y + li.toY * (time * 0.05);
+
+                if (li.x > w) {
+                    li.x = 0;
+                }
+                if (li.y > h) {
+                    li.y = 0;
+                }
+                if (li.x < 0) {
+                    li.x = w;
+                }
+                if (li.y < 0) {
+                    li.y = h;
+                }
+            }
+            if (time < speed) {
+                time++;
+            }
+            setTimeout(particles, 1000 / rate);
+        }
+
+        function MouseMove(e) {
+            mouse.x = e.layerX;
+            mouse.y = e.layerY;
+        }
+
+        function DistanceBetween(p1, p2) {
+            var dx = p2.x - p1.x;
+            var dy = p2.y - p1.y;
+            return Math.sqrt(dx * dx + dy * dy);
+        }
+
+        // Initialize
+        create();
+        particles();
+
+        // Add mouse move event listener
+        canvas.addEventListener('mousemove', MouseMove, false);
+
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            w = window.innerWidth;
+            h = window.innerHeight;
+            canvas.width = w;
+            canvas.height = h;
+            create();
+        });
+    </script>
+</body>
+
+</html>

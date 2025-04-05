@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Space Theme Book Promotion</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: radial-gradient(ellipse at bottom, #0d1d31 0%, #0c0d13 100%);
+            overflow: hidden;
+            font-family: 'Arial', sans-serif;
+            color: white;
+            margin: 0;
+        }
+
+        /* Stars Container */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 120%;
+            transform: rotate(-45deg);
+        }
+
+        /* Star Animation */
+        .star {
+            --star-color: #00d1b2;
+            --star-tail-length: 6em;
+            --star-tail-height: 2px;
+            --star-width: calc(var(--star-tail-length) / 6);
+            --fall-duration: 9s;
+            position: absolute;
+            top: var(--top-offset);
+            left: 0;
+            width: var(--star-tail-length);
+            height: var(--star-tail-height);
+            color: var(--star-color);
+            background: linear-gradient(45deg, currentColor, transparent);
+            border-radius: 50%;
+            filter: drop-shadow(0 0 6px currentColor);
+            transform: translate3d(104em, 0, 0);
+            animation: fall var(--fall-duration) linear infinite,
+                tail-fade var(--fall-duration) ease-out infinite;
+        }
+
+        .star::before,
+        .star::after {
+            position: absolute;
+            content: '';
+            top: 0;
+            left: calc(var(--star-width) / -2);
+            width: var(--star-width);
+            height: 100%;
+            background: linear-gradient(45deg, transparent, currentColor, transparent);
+            border-radius: inherit;
+            animation: blink 2s linear infinite;
+        }
+
+        .star::before {
+            transform: rotate(45deg);
+        }
+
+        .star::after {
+            transform: rotate(-45deg);
+        }
+
+        /* Arrows Animation */
+        .arrow {
+            --arrow-color: #4CAF50;
+            --arrow-size: 15px;
+            --arrow-speed: 4s;
+            position: absolute;
+            top: var(--arrow-top);
+            right: var(--arrow-right);
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--arrow-color), transparent);
+            animation: arrow-fall var(--arrow-speed) linear infinite;
+        }
+
+        .arrow::before {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: -5px;
+            border: var(--arrow-size) solid transparent;
+            border-right: var(--arrow-size) solid var(--arrow-color);
+            transform: rotate(45deg);
+        }
+
+        /* Content Styling */
+        .content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 3rem;
+            background: rgba(13, 29, 49, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 0 30px rgba(0, 213, 178, 0.2);
+            border: 1px solid rgba(0, 213, 178, 0.1);
+            max-width: 600px;
+            margin: 2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .content:hover {
+            transform: translateY(-5px);
+        }
+
+        .book-image {
+            max-width:150px;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 0 30px rgba(0, 213, 178, 0.3);
+            margin-bottom:0.6rem;
+            transition: transform 0.3s ease;
+        }
+
+        .book-image:hover {
+            transform: scale(1.05);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #00d1b2;
+            text-shadow: 0 0 15px rgba(0, 213, 178, 0.5);
+        }
+
+        p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #fff;
+            margin-bottom: 2rem;
+            text-shadow: 0 0 10px rgba(0, 213, 178, 0.3);
+        }
+
+        .cta-button {
+            background: rgba(0, 213, 178, 0.2);
+            color: #00d1b2;
+            padding: 1rem 2rem;
+            border: 2px solid #00d1b2;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-button:hover {
+            background: rgba(0, 213, 178, 0.3);
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(0, 213, 178, 0.4);
+        }
+
+        /* Animations */
+        @keyframes fall {
+            to {
+                transform: translate3d(-30em, 0, 0);
+            }
+        }
+
+        @keyframes tail-fade {
+
+            0%,
+            50% {
+                width: var(--star-tail-length);
+                opacity: 1;
+            }
+
+            100% {
+                width: 0;
+                opacity: 0;
+            }
+        }
+
+        @keyframes blink {
+            50% {
+                opacity: 0.6;
+            }
+        }
+
+        @keyframes arrow-fall {
+            0% {
+                opacity: 0;
+                transform: translateX(100vw);
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            90% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0;
+                transform: translateX(-100vw);
+            }
+        }
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px 20px;
+            border-radius: 30px;
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        /* Responsive Design */
+        @media screen and (max-width: 750px) {
+            .content {
+                margin: 1rem;
+                padding: 2rem;
+            }
+
+            .book-image {
+                max-width: 250px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="stars">
+        <!-- Stars -->
+        <div class="star" style="--top-offset: 10%; --fall-duration: 8s"></div>
+        <div class="star" style="--top-offset: 30%; --fall-duration: 7s"></div>
+        <div class="star" style="--top-offset: 50%; --fall-duration: 9s"></div>
+        <div class="star" style="--top-offset: 70%; --fall-duration: 6s"></div>
+        <div class="star" style="--top-offset: 90%; --fall-duration: 8s"></div>
+        <!-- More stars for fuller effect -->
+        <div class="star" style="--top-offset: 15%; --fall-duration: 10s"></div>
+        <div class="star" style="--top-offset: 45%; --fall-duration: 7.5s"></div>
+        <div class="star" style="--top-offset: 65%; --fall-duration: 8.5s"></div>
+
+        <!-- Arrows -->
+        <div class="arrow" style="--arrow-top: 15%; --arrow-right: 5%; --arrow-speed: 5s"></div>
+        <div class="arrow" style="--arrow-top: 35%; --arrow-right: 15%; --arrow-speed: 6s"></div>
+        <div class="arrow" style="--arrow-top: 55%; --arrow-right: 25%; --arrow-speed: 4s"></div>
+        <div class="arrow" style="--arrow-top: 75%; --arrow-right: 35%; --arrow-speed: 5s"></div>
+        <div class="arrow" style="--arrow-top: 95%; --arrow-right: 45%; --arrow-speed: 7s"></div>
+    </div>
+
+    <div class="content">
+        <img src="https://moodswag.com/wp-content/uploads/2021/01/Subhash-Chandra-Bose-1-768x1184.jpg" alt="Book Cover" class="book-image">
+        <h1>Netaji Subhas Bose</h1>
+        <p>
+            Step into the inspiring journey of Netaji Subhas Chandra Bose — a symbol of courage and patriotism.
+A must-read for those who admire fearless leadership and the spirit of freedom.
+        </p>
+        <a href="#" class="cta-button">Get Your Copy Now!</a>
+    
+    </div>
+    <a href="index.html" class="back-button">← Back to Home</a>
+</body>
+
+</html>

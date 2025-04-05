@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netaji Book - Choose Your Experience</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            color: white;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #e94560;
+            text-shadow: 0 0 10px rgba(233, 69, 96, 0.3);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #a4b0be;
+        }
+
+        .buttons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .theme-button {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            padding: 2rem;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: white;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .theme-button:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .button-title {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #e94560;
+        }
+
+        .button-description {
+            font-size: 0.9rem;
+            color: #a4b0be;
+        }
+
+        @media (max-width: 768px) {
+            .buttons-grid {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Netaji Subhas Bose</h1>
+        <p class="subtitle">Choose your preferred visual experience</p>
+    </div>
+
+    <div class="buttons-grid">
+        <a href="interactive-particles.html" class="theme-button">
+            <div class="button-title">Interactive Particles</div>
+            <p class="button-description">Dynamic particle effects that respond to your movement</p>
+        </a>
+
+        <a href="css-doodle.html" class="theme-button">
+            <div class="button-title">Geometric Patterns</div>
+            <p class="button-description">Mesmerizing geometric animations</p>
+        </a>
+
+        <a href="starlit.html" class="theme-button">
+            <div class="button-title">Starlit Sky</div>
+            <p class="button-description">Twinkling stars against a night sky</p>
+        </a>
+
+        <a href="space-theme.html" class="theme-button">
+            <div class="button-title">Space Journey</div>
+            <p class="button-description">Shooting stars and cosmic arrows</p>
+        </a>
+
+        <a href="snowy.html" class="theme-button">
+            <div class="button-title">Snowy Night</div>
+            <p class="button-description">Gentle snowfall in a winter setting</p>
+        </a>
+
+        <a href="gradient-pattern.html" class="theme-button">
+            <div class="button-title">Color Waves</div>
+            <p class="button-description">Flowing gradient patterns</p>
+        </a>
+    </div>
+</body>
+</html>

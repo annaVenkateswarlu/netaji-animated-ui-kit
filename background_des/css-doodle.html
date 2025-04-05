@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Book Promotion</title>
+    <script src="https://unpkg.com/css-doodle@0.34.3/css-doodle.min.js"></script>
+    <style>
+        html,
+        body {
+            margin: 0;
+            overflow: hidden;
+            min-height: 100vh;
+            font-family: 'Arial', sans-serif;
+            background: #270f34;
+        }
+
+        css-doodle {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .book-container {
+            background: rgba(39, 15, 52, 0.85);
+            backdrop-filter: blur(10px);
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 0 30px rgba(81, 234, 234, 0.2);
+            border: 1px solid rgba(81, 234, 234, 0.1);
+            max-width: 600px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .book-container:hover {
+            transform: translateY(-5px);
+        }
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px 20px;
+            border-radius: 30px;
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        .book-image {
+            max-width:150px;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 0 25px rgba(81, 234, 234, 0.3);
+            margin-bottom:0.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .book-image:hover {
+            transform: scale(1.05);
+        }
+
+        h1 {
+            color: #51eaea;
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 10px rgba(81, 234, 234, 0.5);
+        }
+
+        p {
+            color: #fffde1;
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            text-shadow: 0 0 5px rgba(255, 253, 225, 0.3);
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: rgba(81, 234, 234, 0.2);
+            color: #51eaea;
+            text-decoration: none;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border: 2px solid #51eaea;
+            transition: all 0.3s ease;
+            text-shadow: 0 0 5px rgba(81, 234, 234, 0.5);
+        }
+
+        .cta-button:hover {
+            background: rgba(81, 234, 234, 0.3);
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(81, 234, 234, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .book-container {
+                padding: 2rem;
+                margin: 1rem;
+            }
+
+            .book-image {
+                max-width: 250px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            p {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <css-doodle>
+        <style>
+            --color: #51eaea,
+            #fffde1,
+            #ff9d76,
+            #FB3569;
+
+            @grid: 30x1 / 100vw 100vh / #270f34;
+
+            :container {
+                perspective: 30vmin;
+                --deg: @p(-180deg, 180deg);
+            }
+
+            :after,
+            :before {
+                content: '';
+                background: @p(--color);
+                @place: @r(100%) @r(100%);
+                @size: @r(6px);
+                @shape: heart;
+            }
+
+            @place: center;
+            @size: 18vmin;
+            box-shadow: @m2(0 0 50px @p(--color));
+            background: @m100(radial-gradient(@p(--color) 50%, transparent 0) @r(-20%, 120%) @r(-20%, 100%) / 1px 1px no-repeat);
+            will-change: transform,
+            opacity;
+            animation: scale-up 12s linear infinite;
+            animation-delay: calc(-12s / @I * @i);
+
+            @keyframes scale-up {
+
+                0%,
+                95.01%,
+                100% {
+                    transform: translateZ(0) rotate(0);
+                    opacity: 0;
+                }
+
+                10% {
+                    opacity: 1;
+                }
+
+                95% {
+                    transform: translateZ(35vmin) rotateZ(var(--deg));
+                }
+            }
+        </style>
+    </css-doodle>
+
+    <div class="content">
+        <div class="book-container">
+            <img src="https://moodswag.com/wp-content/uploads/2021/01/Subhash-Chandra-Bose-1-768x1184.jpg" alt="Book Cover" class="book-image">
+            <h1>Netaji Subhas Bose</h1>
+            <p>
+                Step into the inspiring journey of Netaji Subhas Chandra Bose — a symbol of courage and patriotism.
+A must-read for those who admire fearless leadership and the spirit of freedom.
+            </p>
+            <a href="#" class="cta-button">Get Your Copy Now!</a>
+        </div>
+    </div>
+    <a href="index.html" class="back-button">← Back to Home</a>
+</body>
+
+</html>

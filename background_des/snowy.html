@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Snowy Book Promotion</title>
+    <style>
+        /* Snow animation styles */
+        .snow,
+        .snow:before,
+        .snow:after {
+            position: fixed;
+            top: -600px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                radial-gradient(4px 4px at 396px 328px, rgba(255, 255, 255, 0.7) 50%, rgba(0, 0, 0, 0)),
+                radial-gradient(3px 3px at 523px 143px, rgba(255, 255, 255, 0.6) 50%, rgba(0, 0, 0, 0)),
+                radial-gradient(6px 6px at 258px 499px, rgba(255, 255, 255, 0.9) 50%, rgba(0, 0, 0, 0)),
+                radial-gradient(4px 4px at 150px 200px, rgba(255, 255, 255, 0.8) 50%, rgba(0, 0, 0, 0)),
+                radial-gradient(5px 5px at 450px 400px, rgba(255, 255, 255, 0.7) 50%, rgba(0, 0, 0, 0));
+            background-size: 600px 600px;
+            animation: snow 3s linear infinite;
+            content: "";
+            z-index: 1;
+        }
+
+        .snow:after {
+            margin-left: -200px;
+            opacity: 0.4;
+            animation-duration: 6s;
+            animation-direction: reverse;
+            filter: blur(3px);
+        }
+
+        .snow:before {
+            animation-duration: 9s;
+            animation-direction: reverse;
+            margin-left: -300px;
+            opacity: 0.65;
+            filter: blur(1.5px);
+        }
+
+        @keyframes snow {
+            to {
+                transform: translateY(600px);
+            }
+        }
+
+        /* Base styles */
+        html {
+            height: 100%;
+            background: linear-gradient(#123 30%, #667);
+            overflow: hidden;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* Content styling */
+        .content {
+            position: relative;
+            z-index: 2;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 3rem;
+            border-radius: 15px;
+            color: white;
+            text-align: center;
+            max-width: 600px;
+            margin: 2rem;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .content:hover {
+            transform: translateY(-5px);
+        }
+
+        .book-image {
+            max-width:150px;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+            margin-bottom:0.6rem;
+            transition: transform 0.3s ease;
+        }
+
+        .book-image:hover {
+            transform: scale(1.05);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        }
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px 20px;
+            border-radius: 30px;
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        .cta-button {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 1rem 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 30px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .content {
+                margin: 1rem;
+                padding: 2rem;
+            }
+
+            .book-image {
+                max-width: 250px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            p {
+                font-size: 1rem;
+            }
+        }
+
+        @media (prefers-reduced-motion) {
+
+            .snow,
+            .snow:before,
+            .snow:after {
+                animation: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="snow"></div>
+    <div class="content">
+        <img src="https://moodswag.com/wp-content/uploads/2021/01/Subhash-Chandra-Bose-1-768x1184.jpg" alt="Book Cover" class="book-image">
+        <h1>Netaji Subhas Bose</h1>
+        <p>
+            Step into the inspiring journey of Netaji Subhas Chandra Bose — a symbol of courage and patriotism.
+A must-read for those who admire fearless leadership and the spirit of freedom.
+        </p>
+        <a href="#" class="cta-button">Get Your Copy Now!</a>
+    </div>
+    <a href="index.html" class="back-button">← Back to Home</a>
+</body>
+
+</html>
